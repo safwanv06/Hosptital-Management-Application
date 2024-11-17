@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -71,6 +72,8 @@ class AddPatientView extends ConsumerWidget {
                 height: appSizeChart.padding_20.sp,
               ),
               CustomTextField(
+                maxLength: 10,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 controller: whatsappNumberController,
                 title: "Whatsapp Number",
                 hintText: "Enter your whatsapp number",
@@ -157,6 +160,7 @@ class AddPatientView extends ConsumerWidget {
                 height: appSizeChart.padding_20.sp,
               ),
               CustomTextField(
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   inputType: TextInputType.number,
                   controller: totalController,
                   title: "Total Amount"),
@@ -164,6 +168,7 @@ class AddPatientView extends ConsumerWidget {
                 height: appSizeChart.padding_20.sp,
               ),
               CustomTextField(
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   inputType: TextInputType.number,
                   controller: discountController,
                   title: "Discount Amount"),
@@ -177,6 +182,7 @@ class AddPatientView extends ConsumerWidget {
                 height: appSizeChart.padding_20.sp,
               ),
               CustomTextField(
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   inputType: TextInputType.number,
                   controller: advanceController,
                   title: "Advance Amount"),
@@ -184,6 +190,7 @@ class AddPatientView extends ConsumerWidget {
                 height: appSizeChart.padding_20.sp,
               ),
               CustomTextField(
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   inputType: TextInputType.number,
                   controller: balanceController,
                   title: "Balance Amount"),

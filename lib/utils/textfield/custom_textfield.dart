@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../main.dart';
@@ -11,23 +12,30 @@ class CustomTextField extends StatelessWidget {
       this.onChanged,
       this.isEnabled = true,
       required this.title,
-       this.inputType,
+      this.inputType,
+      this.maxLength,
+      this.inputFormatters,
       this.hintText});
 
   final String title;
   final String? hintText;
   bool isEnabled;
   final Function()? onTap;
+  final int? maxLength;
   final Function(String value)? onChanged;
   final TextEditingController controller;
   final TextInputType? inputType;
+  List<TextInputFormatter>? inputFormatters;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title,style: fontStyles.font12_300,),
+        Text(
+          title,
+          style: fontStyles.font12_300,
+        ),
         SizedBox(
           height: appSizeChart.padding_6.h,
         ),
@@ -35,7 +43,10 @@ class CustomTextField extends StatelessWidget {
           onTap: onTap,
           child: TextField(
             style: fontStyles.font16_400,
+            inputFormatters: inputFormatters,
+            maxLength: maxLength,
             decoration: InputDecoration(
+              counterText: "",
                 enabled: isEnabled,
                 filled: true,
                 fillColor: appColors.color000000.withOpacity(0.1),
