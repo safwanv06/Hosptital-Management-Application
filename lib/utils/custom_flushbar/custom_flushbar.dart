@@ -9,7 +9,7 @@ flushBarNotification(
     required String message,
     required FlushBarType type}) {
   late Color backGroundColor;
-  Color messageColor = appColors.fontColorWhite;
+  Color messageColor = appColors.colorFFFFFF;
 
   switch (type) {
     case FlushBarType.success:

@@ -19,11 +19,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: AppBar(
           leading: Icon(
             Icons.arrow_back_ios,
-            color: appColors.iconColorBlack,
+            color: appColors.color000000,
           ),
           title: Text(
             title,
-            style: fontStyles.font18Black,
           ),
         ));
   }

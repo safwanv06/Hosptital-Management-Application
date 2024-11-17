@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:noviindus_machine_test/screens/authentication/splashscreen/view/splash_screen.dart';
 
+import 'screens/splashscreen/view/splash_screen.dart';
 import 'utils/api_routes/api_routes.dart';
 import 'utils/image_data/image_data.dart';
 import 'utils/shared_preference/shared_preference_controller.dart';
@@ -24,16 +24,19 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Novi indus',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return ScreenUtilInit(
+      designSize: const Size(390, 844),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Kumarakom',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: SplashScreen(),
       ),
-      home: const SplashScreen(),
     );
   }
 }

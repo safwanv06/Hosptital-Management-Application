@@ -16,11 +16,14 @@ class CustomButton extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(appSizeChart.padding_8.sp),
+        width: double.infinity,
         decoration: BoxDecoration(
             color: buttonColor ?? appColors.buttonColor,
             borderRadius: BorderRadius.circular(appSizeChart.radius_8)),
-        child: Text(buttonName,style: fontStyles.buttonNameStyle,),
+        child: Padding(
+          padding:  EdgeInsets.symmetric(vertical: appSizeChart.padding_12.h),
+          child: Center(child: Text(buttonName,style: fontStyles.fontButtonStyle,)),
+        ),
       ),
     );
   }

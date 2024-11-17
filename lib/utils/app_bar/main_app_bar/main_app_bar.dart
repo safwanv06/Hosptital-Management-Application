@@ -14,7 +14,6 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text(
         "Header",
-        style: fontStyles.font18Black,
       ),
     );
   }

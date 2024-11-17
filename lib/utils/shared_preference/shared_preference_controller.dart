@@ -12,4 +12,10 @@ class SharedDataController {
     bool data = await sharedPreferences.setString(key, value);
     return data;
   }
+
+  Future<bool> clearSharedData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    bool data = await sharedPreferences.clear();
+    return data;
+  }
 }
