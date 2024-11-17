@@ -72,7 +72,7 @@ class SignInView extends StatelessWidget {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const HomeScreenView(),
+                                  builder: (context) => HomeScreenView(),
                                 ));
                           },
                         ).onError(

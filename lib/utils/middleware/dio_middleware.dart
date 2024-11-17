@@ -11,7 +11,7 @@ Dio dioApiCall() {
     String token = await sharedDataController.getSharedData(
         key: SharedPreferenceKeys.token);
     if (token != "") {
-      options.headers["Authorization"] = token;
+      options.headers["Authorization"] = "Bearer $token";
     }
     return handler.next(options);
   }, onResponse: (Response response, ResponseInterceptorHandler handler) async {

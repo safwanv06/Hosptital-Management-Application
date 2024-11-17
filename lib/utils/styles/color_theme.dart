@@ -12,4 +12,6 @@ class AppColors {
   Color colorD9D9D9 = const Color(0xFFD9D9D9);
   Color color0028FC = const Color(0xFF0028FC);
   Color buttonColor = const Color(0xFF006837);
+  Color color389A48 = const Color(0xFF389A48);
+  Color colorF1F1F1 = const Color(0xFFF1F1F1);
 }

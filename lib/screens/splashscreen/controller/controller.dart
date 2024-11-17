@@ -16,7 +16,7 @@ class SplashScreenController {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => const HomeScreenView(),
+                builder: (context) =>  HomeScreenView(),
               ));
         } else {
           Navigator.pushReplacement(

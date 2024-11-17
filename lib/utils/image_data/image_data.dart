@@ -10,4 +10,5 @@ class ImageData {
 
   ///exception handling images
   String noDataImage = "$_imagePath/no_data_found.png";
+  String notFoundImage = "$_imagePath/no_data.png";
 }

@@ -11,7 +11,6 @@ class SignInService {
           FormData.fromMap({"username": userName, "password": password});
       Response response =
           await dioApiCall().post(apiRoutes.signIn, data: formData);
-      print("the response is ${response.data}");
       if (response.statusCode == 200 && response.data["status"] != false) {
         await sharedDataController.setSharedData(
             key: SharedPreferenceKeys.token, value: response.data["token"]);

@@ -8,6 +8,7 @@ import 'utils/shared_preference/shared_preference_controller.dart';
 import 'utils/size_chart/app_size_chart.dart';
 import 'utils/styles/color_theme.dart';
 import 'utils/styles/font_style.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 FontStyles fontStyles = FontStyles();
 AppSizeChart appSizeChart = AppSizeChart();
@@ -18,7 +19,7 @@ ImageData imageData = ImageData();
 ScreenUtil screenUtil = ScreenUtil();
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
