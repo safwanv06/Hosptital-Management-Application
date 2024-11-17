@@ -13,7 +13,7 @@ class PaymentOptionWidget extends ConsumerWidget {
   PaymentOption? paymentOption;
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -25,9 +25,13 @@ class PaymentOptionWidget extends ConsumerWidget {
           height: appSizeChart.padding_6.h,
         ),
         Row(children: [
-          CustomRadioButton(isEnabled: paymentOption == PaymentOption.cash,onTap:() {
-            ref.read(paymentOptionController.notifier).state=PaymentOption.cash;
-          },),
+          CustomRadioButton(
+            isEnabled: paymentOption == PaymentOption.cash,
+            onTap: () {
+              ref.read(paymentOptionController.notifier).state =
+                  PaymentOption.cash;
+            },
+          ),
           SizedBox(
             width: appSizeChart.padding_6.w,
           ),
@@ -36,9 +40,13 @@ class PaymentOptionWidget extends ConsumerWidget {
             style: fontStyles.font16_400,
           ),
           const Spacer(),
-          CustomRadioButton(isEnabled: paymentOption == PaymentOption.card,onTap: () {
-            ref.read(paymentOptionController.notifier).state=PaymentOption.card;
-          },),
+          CustomRadioButton(
+            isEnabled: paymentOption == PaymentOption.card,
+            onTap: () {
+              ref.read(paymentOptionController.notifier).state =
+                  PaymentOption.card;
+            },
+          ),
           SizedBox(
             width: appSizeChart.padding_6.w,
           ),
@@ -47,9 +55,13 @@ class PaymentOptionWidget extends ConsumerWidget {
             style: fontStyles.font16_400,
           ),
           const Spacer(),
-          CustomRadioButton(isEnabled: paymentOption == PaymentOption.UPI,onTap: () {
-            ref.read(paymentOptionController.notifier).state=PaymentOption.UPI;
-          },),
+          CustomRadioButton(
+            isEnabled: paymentOption == PaymentOption.UPI,
+            onTap: () {
+              ref.read(paymentOptionController.notifier).state =
+                  PaymentOption.UPI;
+            },
+          ),
           SizedBox(
             width: appSizeChart.padding_6.w,
           ),

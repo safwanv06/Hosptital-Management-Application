@@ -11,6 +11,7 @@ class CustomTextField extends StatelessWidget {
       this.onChanged,
       this.isEnabled = true,
       required this.title,
+       this.inputType,
       this.hintText});
 
   final String title;
@@ -19,6 +20,7 @@ class CustomTextField extends StatelessWidget {
   final Function()? onTap;
   final Function(String value)? onChanged;
   final TextEditingController controller;
+  final TextInputType? inputType;
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +62,7 @@ class CustomTextField extends StatelessWidget {
                         width: appSizeChart.borderWidth),
                     borderRadius:
                         BorderRadius.circular(appSizeChart.radius_8))),
+            keyboardType: inputType,
             onTap: onTap,
             controller: controller,
             onChanged: onChanged,

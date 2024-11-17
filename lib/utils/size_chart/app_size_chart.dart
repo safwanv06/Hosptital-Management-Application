@@ -33,4 +33,5 @@ class AppSizeChart {
   double iconSize16 = 16.sp;
   double iconSize20 = 20.sp;
   double iconSize26 = 26.sp;
+  double iconSize40 = 40.sp;
 }
