@@ -9,6 +9,7 @@ import 'package:noviindus_machine_test/utils/custom_button/custom_button.dart';
 import 'package:noviindus_machine_test/utils/custom_flushbar/custom_flushbar.dart';
 import 'package:noviindus_machine_test/utils/custom_flushbar/model/flushbar_type.dart';
 import 'package:noviindus_machine_test/utils/loading_screen/loading_screen.dart';
+import 'package:noviindus_machine_test/utils/middleware/api_error_handling.dart';
 import 'package:noviindus_machine_test/utils/textfield/custom_textfield.dart';
 
 class SignInView extends StatelessWidget {
@@ -77,10 +78,7 @@ class SignInView extends StatelessWidget {
                         ).onError(
                           (error, stackTrace) {
                             Navigator.pop(context);
-                            flushBarNotification(
-                                context: context,
-                                message: "Login failed!!",
-                                type: FlushBarType.error);
+                            apiErrorHandling(context: context, error: error);
                           },
                         );
                       } else {

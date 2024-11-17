@@ -11,12 +11,14 @@ class SignInService {
           FormData.fromMap({"username": userName, "password": password});
       Response response =
           await dioApiCall().post(apiRoutes.signIn, data: formData);
-      if(response.statusCode==200){
-        await sharedDataController.setSharedData(key: SharedPreferenceKeys.token, value: response.data["token"]);
+      print("the response is ${response.data}");
+      if (response.statusCode == 200 && response.data["status"] != false) {
+        await sharedDataController.setSharedData(
+            key: SharedPreferenceKeys.token, value: response.data["token"]);
         return true;
-      }
-      else{
-        throw Error();
+      } else {
+        throw DioException(
+            requestOptions: RequestOptions(), response: response);
       }
     } catch (e) {
       rethrow;
