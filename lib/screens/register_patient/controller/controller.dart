@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:noviindus_machine_test/main.dart';
+import 'package:noviindus_machine_test/model/patient_details_model.dart';
 import 'package:noviindus_machine_test/model/treatment_model.dart';
 import 'package:noviindus_machine_test/screens/register_patient/service/model/model.dart';
 import 'package:noviindus_machine_test/screens/register_patient/service/service.dart';
+import 'package:noviindus_machine_test/screens/register_patient/view/widgets/payment_option_widget.dart';
 import 'package:noviindus_machine_test/screens/register_patient/view/widgets/treatment_dialog_count_component.dart';
 import 'package:noviindus_machine_test/utils/custom_buttom_sheet/custom_bottom_sheet.dart';
 import 'package:noviindus_machine_test/utils/custom_button/custom_button.dart';
@@ -15,6 +17,7 @@ import 'package:noviindus_machine_test/utils/middleware/api_error_handling.dart'
 import 'package:noviindus_machine_test/utils/textfield/custom_textfield.dart';
 
 import '../../../model/branch_details_model.dart';
+import '../../../utils/shared_preference/shared_preference_keys.dart';
 
 final paymentOptionController = StateProvider.autoDispose<PaymentOption?>(
   (ref) => null,
@@ -24,10 +27,41 @@ final treatmentsController = StateProvider.autoDispose<List<TreatmentModel>>(
   (ref) => [],
 );
 
-treatmentDialogBox({required BuildContext context, required Function(TreatmentModel model) onUpdate}) {
+validatePatientRegistration(
+    {required PatientDetailsModel patientDetails,
+    required PaymentOption? paymentOption}) async {
+  return patientDetails.name != null &&
+      patientDetails.name != "" &&
+      patientDetails.whatsAppNumber != null &&
+      patientDetails.whatsAppNumber != "" &&
+      patientDetails.address != null &&
+      patientDetails.address != "" &&
+      patientDetails.branchDetailsModel != null &&
+      patientDetails.treatments != null &&
+      patientDetails.treatments!.isNotEmpty &&
+      patientDetails.totalAmount != null &&
+      patientDetails.discountAmount != null &&
+      paymentOption != null &&
+      patientDetails.advanceAmount != null &&
+      patientDetails.balanceAmount != null &&
+      patientDetails.treatmentDate != null;
+}
+
+addTreatmentValidation({required TreatmentModel treatment}) {
+  return
+    treatment.treatmentName != null &&
+    treatment.treatmentName != "" &&
+      treatment.maleCount != "" &&
+      treatment.femaleCount != "";
+}
+
+treatmentDialogBox(
+    {required BuildContext context,
+    required Function(TreatmentModel model) onUpdate}) {
   TextEditingController controller = TextEditingController();
   int mensCount = 0;
   int femaleCount = 0;
+  String prize = "0";
   return showDialog(
     useSafeArea: true,
     context: context,
@@ -68,6 +102,7 @@ treatmentDialogBox({required BuildContext context, required Function(TreatmentMo
                         onTap: (treatment) {
                           controller.text =
                               treatment.treatmentName ?? "Not Found";
+                          prize = treatment.prize ?? "0";
                           Navigator.pop(context);
                         },
                       );
@@ -116,6 +151,7 @@ treatmentDialogBox({required BuildContext context, required Function(TreatmentMo
                   onTap: () {
                     onUpdate(TreatmentModel(
                         id: 0,
+                        prize: prize.toString(),
                         treatmentName: controller.text,
                         maleCount: mensCount.toString(),
                         femaleCount: femaleCount.toString()));

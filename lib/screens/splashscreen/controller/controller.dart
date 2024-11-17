@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:noviindus_machine_test/screens/authentication/sign_in/view/sign_in_view.dart';
 import 'package:noviindus_machine_test/screens/home_screen/view/home_screen_view.dart';
-import 'package:noviindus_machine_test/screens/register_patient/service/service.dart';
-import 'package:noviindus_machine_test/screens/register_patient/view/add_patient_view.dart';
 
 import '../../../../main.dart';
 import '../../../../utils/shared_preference/shared_preference_keys.dart';
@@ -18,7 +16,7 @@ class SplashScreenController {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) =>  AddPatientView(),
+                builder: (context) =>  HomeScreenView(),
               ));
         } else {
           Navigator.pushReplacement(

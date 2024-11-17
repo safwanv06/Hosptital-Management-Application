@@ -43,6 +43,7 @@ class AddPatientService {
         for (Map element in data) {
           treatments.add(TreatmentModel(
               id: element["id"],
+              prize: element["price"],
               treatmentName: element["name"],
               femaleCount: null,maleCount: null));
         }

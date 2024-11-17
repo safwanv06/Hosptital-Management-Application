@@ -15,12 +15,15 @@ import 'package:noviindus_machine_test/screens/register_patient/view/widgets/pay
 import 'package:noviindus_machine_test/screens/register_patient/view/widgets/treatment_card_builder.dart';
 import 'package:noviindus_machine_test/utils/app_bar/main_app_bar/main_app_bar.dart';
 import 'package:noviindus_machine_test/utils/custom_button/custom_button.dart';
+import 'package:noviindus_machine_test/utils/custom_flushbar/custom_flushbar.dart';
 import 'package:noviindus_machine_test/utils/loading_screen/loading_screen.dart';
 import 'package:noviindus_machine_test/utils/middleware/api_error_handling.dart';
 import 'package:noviindus_machine_test/utils/pdf_converter/pdf_converter.dart';
+import 'package:noviindus_machine_test/utils/shared_preference/shared_preference_keys.dart';
 import 'package:noviindus_machine_test/utils/textfield/custom_textfield.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import '../../../utils/custom_flushbar/model/flushbar_type.dart';
 import '../controller/controller.dart';
 
 class AddPatientView extends ConsumerWidget {
@@ -129,11 +132,24 @@ class AddPatientView extends ConsumerWidget {
               StatefulBuilder(builder: (context, setState) {
                 return TreatmentCardBuilder(
                   treatments: treatments,
-                  onUpdate: (model) {
-                    treatments.add(model);
+                  onDeleteTap: (model) {
+                    treatments.remove(model);
                     ref.read(treatmentsController.notifier).state = treatments;
-                    Navigator.pop(context);
                     setState(() {});
+                  },
+                  onUpdate: (model) {
+                    if (addTreatmentValidation(treatment: model)) {
+                      treatments.add(model);
+                      ref.read(treatmentsController.notifier).state =
+                          treatments;
+                      Navigator.pop(context);
+                      setState(() {});
+                    } else {
+                      flushBarNotification(
+                          context: context,
+                          message: "Add treatment details",
+                          type: FlushBarType.warning);
+                    }
                   },
                 );
               }),
@@ -183,7 +199,7 @@ class AddPatientView extends ConsumerWidget {
                         context: context);
                     if (date != null) {
                       treatmentDateController.text =
-                          DateFormat("dd-MM-yy").format(date);
+                          DateFormat("yyyy-MM-dd").format(date);
                     }
                   },
                   controller: treatmentDateController,
@@ -237,35 +253,49 @@ class AddPatientView extends ConsumerWidget {
                 buttonName: "Save",
                 onTap: () async {
                   PatientDetailsModel patientDetails = PatientDetailsModel(
-                      id: 1,
-                      name: "name",
-                      user: "user",
-                      whatsAppNumber: "222",
-                      address: "address",
+                      id: 0,
+                      name: nameController.text,
+                      user: await sharedDataController.getSharedData(
+                          key: SharedPreferenceKeys.name),
+                      whatsAppNumber: whatsappNumberController.text,
+                      address: addressController.text,
                       treatments: treatments,
-                      totalAmount: 2,
-                      discountAmount: 2,
-                      advanceAmount: 2,
-                      balanceAmount: 2,
-                      treatmentDate: null);
-                  // PatientDetailsModel(
-                  //     id: 0,
-                  //     name: nameController.text,
-                  //     user: "",
-                  //     whatsAppNumber: whatsappNumberController.text,
-                  //     address: addressController.text,
-                  //     treatments: treatments,
-                  //     totalAmount: int.parse(totalController.text),
-                  //     discountAmount: int.parse(discountController.text),
-                  //     advanceAmount: int.parse(advanceController.text),
-                  //     balanceAmount: int.parse(balanceController.text),
-                  //     treatmentDate: DateTime.parse(
-                  //         "${2024-11-23}-${treatmentTimeHourController.text}:${treatmentTimeMinuteController.text}"));
-                  pw.Document doc =
-                      await pdfConverter(patientDetails: patientDetails);
-                  File file = await savePdf(name: "Name of pdf.pdf", pdf: doc);
-                  print("file${file.path}");
-                  await openPdfFile(file: file);
+                      totalAmount: totalController.text != ""
+                          ? int.parse(totalController.text)
+                          : null,
+                      discountAmount: discountController.text != ""
+                          ? int.parse(discountController.text)
+                          : null,
+                      advanceAmount: advanceController.text != ""
+                          ? int.parse(advanceController.text)
+                          : null,
+                      balanceAmount: balanceController.text != ""
+                          ? int.parse(balanceController.text)
+                          : null,
+                      branchDetailsModel: BranchDetailsModel(
+                          id: 0,
+                          location: locationController.text,
+                          branchName: branchController.text),
+                      treatmentDate: treatmentDateController.text != "" &&
+                              treatmentTimeHourController.text != "" &&
+                              treatmentTimeMinuteController.text != ""
+                          ? DateTime.parse(
+                              "${treatmentDateController.text} ${treatmentTimeHourController.text}:${treatmentTimeMinuteController.text}")
+                          : null);
+                  if (await validatePatientRegistration(
+                      patientDetails: patientDetails,
+                      paymentOption: paymentOption)) {
+                    pw.Document doc =
+                        await pdfConverter(patientDetails: patientDetails);
+                    File file =
+                        await savePdf(name: "Name of pdf.pdf", pdf: doc);
+                    await openPdfFile(file: file);
+                  } else {
+                    flushBarNotification(
+                        context: context,
+                        message: "Enter all details.",
+                        type: FlushBarType.warning);
+                  }
                 },
               ),
               SizedBox(

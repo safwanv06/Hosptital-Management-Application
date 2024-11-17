@@ -8,6 +8,8 @@ class ImageData {
   String splashScreenBg = "$_imagePath/splash_screen_bg.png";
   String signInBanner = "$_imagePath/sign_in_page_banner.png";
 
+  String pdfWaterMark = "$_imagePath/pdf_watermark.png";
+
   ///exception handling images
   String noDataImage = "$_imagePath/no_data_found.png";
   String notFoundImage = "$_imagePath/no_data.png";

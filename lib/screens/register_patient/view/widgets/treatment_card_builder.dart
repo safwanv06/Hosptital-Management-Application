@@ -9,10 +9,11 @@ import '../../../../main.dart';
 import '../../../../model/treatment_model.dart';
 
 class TreatmentCardBuilder extends StatelessWidget {
-  const TreatmentCardBuilder({super.key, required this.treatments, required this.onUpdate});
+  const TreatmentCardBuilder({super.key, required this.treatments, required this.onUpdate, required this.onDeleteTap});
 
   final List<TreatmentModel> treatments;
   final Function(TreatmentModel model) onUpdate;
+  final Function(TreatmentModel model) onDeleteTap;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,9 @@ class TreatmentCardBuilder extends StatelessWidget {
           shrinkWrap: true,
           itemBuilder: (context, index) {
             return TreatmentCard(
+              onDeleteTap: () {
+                onDeleteTap(treatments[index]);
+              },
               index: index + 1,
               treatmentDetails: treatments[index],
             );

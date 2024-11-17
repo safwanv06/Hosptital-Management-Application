@@ -6,10 +6,11 @@ import '../../../../main.dart';
 
 class TreatmentCard extends StatelessWidget {
   const TreatmentCard(
-      {super.key, required this.treatmentDetails, required this.index});
+      {super.key, required this.treatmentDetails, required this.index, required this.onDeleteTap});
 
   final TreatmentModel treatmentDetails;
   final int index;
+  final Function() onDeleteTap;
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +44,28 @@ class TreatmentCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        treatmentDetails.treatmentName != null &&
-                                treatmentDetails.treatmentName != ""
-                            ? treatmentDetails.treatmentName!
-                            : "Treatment not found",
-                        style: fontStyles.font18_500,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
+                      Row(
+                        children: [
+                          Text(
+                            treatmentDetails.treatmentName != null &&
+                                    treatmentDetails.treatmentName != ""
+                                ? treatmentDetails.treatmentName!
+                                : "Treatment not found",
+                            style: fontStyles.font18_500,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                          const Spacer(),
+                          InkWell(
+                            onTap: onDeleteTap,
+                            child: Icon(
+                              Icons.close,
+                              size: appSizeChart.iconSize26,
+                              color: appColors.flushBarErrorColor,
+                            ),
+                          ),
+                          SizedBox(width: appSizeChart.padding_12.w,)
+                        ],
                       ),
                       SizedBox(
                         height: appSizeChart.padding_14.h,
@@ -67,7 +82,7 @@ class TreatmentCard extends StatelessWidget {
                           ),
                           Text(
                             treatmentDetails.maleCount ?? "0",
-                            style: fontStyles.font16_400,
+                            style: fontStyles.font15_400grey,
                           ),
                           SizedBox(
                             width: appSizeChart.padding_20.w,

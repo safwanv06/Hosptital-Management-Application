@@ -20,6 +20,7 @@ class HomeScreenService {
           List<TreatmentModel> treatments = [];
           for (Map element in treatmentData) {
             treatments.add(TreatmentModel(
+              prize: element["prize"],
                 id: element["id"],
                 treatmentName: element["treatment_name"],
                 maleCount: element["male"],

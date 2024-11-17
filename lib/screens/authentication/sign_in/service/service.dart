@@ -14,6 +14,9 @@ class SignInService {
       if (response.statusCode == 200 && response.data["status"] != false) {
         await sharedDataController.setSharedData(
             key: SharedPreferenceKeys.token, value: response.data["token"]);
+        await sharedDataController.setSharedData(
+            key: SharedPreferenceKeys.name,
+            value: response.data["user_details"]["name"]);
         return true;
       } else {
         throw DioException(

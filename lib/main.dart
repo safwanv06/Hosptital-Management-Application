@@ -4,6 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'screens/splashscreen/view/splash_screen.dart';
 import 'utils/api_routes/api_routes.dart';
 import 'utils/image_data/image_data.dart';
+import 'utils/pdf_converter/styles/pdf_colors.dart';
+import 'utils/pdf_converter/styles/pdf_sizes.dart';
+import 'utils/pdf_converter/styles/pdf_styles.dart';
 import 'utils/shared_preference/shared_preference_controller.dart';
 import 'utils/size_chart/app_size_chart.dart';
 import 'utils/styles/color_theme.dart';
@@ -17,6 +20,9 @@ ApiRoutes apiRoutes = ApiRoutes();
 SharedDataController sharedDataController = SharedDataController();
 ImageData imageData = ImageData();
 ScreenUtil screenUtil = ScreenUtil();
+PdfFontStyles pdfFontStyles = PdfFontStyles();
+PdfSizes pdfSizes = PdfSizes();
+PdfColors pdfColors = PdfColors();
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
